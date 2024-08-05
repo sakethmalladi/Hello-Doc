@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Our Services</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Book an Appointment</h2>
+            <form action="#" th:action="@{/book-appointment}" method="post">
+                <label for="doctorId">Doctor:</label>
+                <select id="doctorId" name="doctorId" required>
+                    <option value="">Select a Doctor</option>
+                    <th:block th:each="doctor : ${doctors}">
+                        <option th:value="${doctor.id}" th:text="${doctor.name + ' (' + doctor.specialization + ')'}"></option>
+                    </th:block>
+                </select>
+
+                <label for="patientId">Patient:</label>
+                <select id="patientId" name="patientId" required>
+                    <option value="">Select a Patient</option>
+                    <th:block th:each="patient : ${patients}">
+                        <option th:value="${patient.id}" th:text="${patient.name}"></option>
+                    </th:block>
+                </select>
+
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Ask a Question</h2>
+            <form action="#" th:action="@{/ask-question}" method="post">
+                <label for="question">Your Question:</label>
+                <input type="text" id="question" name="question" required>
+                <button type="submit">Ask</button>
+            </form>
+            <div>
+                <p>Answer: <span th:text="${answer}"></span></p>
+            </div>
+        </section>
+
+        <!-- Display flash message -->
+        <section>
+            <div th:if="${message}" class="alert alert-success">
+                <p th:text="${message}"></p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
