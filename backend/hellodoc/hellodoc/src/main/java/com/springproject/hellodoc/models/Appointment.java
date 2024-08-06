@@ -1,6 +1,7 @@
 package com.springproject.hellodoc.models;
 
 import jakarta.persistence.*;
+
 @Entity
 public class Appointment {
 
@@ -16,6 +17,8 @@ public class Appointment {
 
     private String date;
     private String time;
+    private int duration; // Duration in minutes
+    private double totalFee; // Total fee for the appointment
 
     // Getters and Setters
     public Long getId() {
@@ -56,5 +59,21 @@ public class Appointment {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public double getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(double totalFee) {
+        this.totalFee = totalFee;
     }
 }
