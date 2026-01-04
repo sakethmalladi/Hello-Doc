@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .payment-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .payment-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .payment-container button {
+            background-color: #6772e5;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .payment-container button:hover {
+            background-color: #5469d4;
+        }
+
+        #card-element {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Complete Your Payment</h2>
+        <form id="payment-form">
+            <div id="card-element"></div>
+            <div id="error-message"></div>
+            <button type="submit">Pay</button>
+        </form>
+    </div>
+
+    <script>
+        // Initialize Stripe with your public key
+        const stripe = Stripe("pk_test_51QTDsJAhtvVVgFKhRsHibwPIIgIbjmZb5MUjgsz6n2gR8dU5VNvU7MKxt2OoAEErMwTucCSc9CXUN0ssscNnHeCI00HJaP19cS"); // Replace with your public key
+        const elements = stripe.elements();
+
+        // Create an instance of the card element
+        const cardElement = elements.create("card");
+        cardElement.mount("#card-element");
+
+        // Handle form submission
+        const form = document.getElementById("payment-form");
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            // Client secret passed from the server-side
+            const clientSecret = "{{ clientSecret }}"; // Replace with dynamic client secret value
+
+            const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: cardElement,
+                },
+            });
+
+            if (error) {
+                // Display error message
+                document.getElementById("error-message").textContent = error.message;
+            } else if (paymentIntent.status === "succeeded") {
+                // Redirect to server to confirm payment
+                window.location.href = `/confirm-payment?paymentIntentId=${paymentIntent.id}&doctorId={{ doctor.id }}&patientName={{ patient.name }}&patientAge={{ patient.age }}&patientEmail={{ patient.email }}&patientPhone={{ patient.phone }}&appointmentDate={{ appointmentDate }}&appointmentTime={{ appointmentTime }}&appointmentDuration={{ appointmentDuration }}`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -25,19 +25,32 @@ public class ChatGPTService {
     }
 
     public String askQuestion(String question) throws Exception {
+        // Define the system role and user prompt
         String payload = "{"
-                + "\"model\": \"gpt-3.5-turbo\","
-                + "\"messages\": [{\"role\": \"user\", \"content\": \"" + question + "\"}],"
-                + "\"max_tokens\": 150"
+                + "\"model\": \"gpt-4o\"," // Use your specific model (e.g., gpt-4o)
+                + "\"messages\": ["
+                + "    {\"role\": \"system\", \"content\": \"You are an Office Assistant at a Doctor Clinic. Provide information on the different medical specializations available for booking appointments with doctors. Answer the user's questions or address any doubts regarding specific specializations, such as cardiology, orthopedics, etc.\"},"
+                + "    {\"role\": \"user\", \"content\": \"" + question + "\"}"
+                + "],"
+                + "\"max_tokens\": 2048,"
+                + "\"temperature\": 1,"
+                + "\"top_p\": 1,"
+                + "\"frequency_penalty\": 0,"
+                + "\"presence_penalty\": 0"
                 + "}";
 
+        // Set headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        // Create HTTP entity
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
+
+        // Make API request
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, entity, String.class);
 
+        // Process response
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonNode rootNode = objectMapper.readTree(response.getBody());
             JsonNode choicesNode = rootNode.path("choices");
