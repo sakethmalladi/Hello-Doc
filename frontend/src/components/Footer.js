@@ -42,7 +42,7 @@ const Footer = () => {
               Your trusted healthcare partner. We connect you with the best doctors
               and provide comprehensive healthcare services.
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            {/* <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton
                 sx={{
                   color: '#94a3b8',
@@ -75,7 +75,7 @@ const Footer = () => {
               >
                 <LinkedInIcon />
               </IconButton>
-            </Box>
+            </Box> */}
           </Grid>
 
           {/* Quick Links */}
@@ -100,25 +100,16 @@ const Footer = () => {
           </Grid>
 
           {/* Services */}
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
               Services
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-                Online Consultations
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#94a3b8' }}>
                 Doctor Appointments
               </Typography>
-              <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-                Health Records
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-                Emergency Care
-              </Typography>
             </Box>
-          </Grid>
+          </Grid> */}
 
           {/* Contact Info */}
           <Grid item xs={12} md={3}>
@@ -129,19 +120,19 @@ const Footer = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <PhoneIcon sx={{ fontSize: 20, color: '#3b82f6' }} />
                 <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-                  +1 (555) 123-4567
+                  +1 (804) 610-3818
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <EmailIcon sx={{ fontSize: 20, color: '#3b82f6' }} />
                 <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-                  info@hellodoc.com
+                  sakethmalladiusa@gmail.com
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'start', gap: 1 }}>
                 <LocationOnIcon sx={{ fontSize: 20, color: '#3b82f6', mt: 0.5 }} />
                 <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-                  123 Healthcare Street, Medical City, MC 12345
+                  3919 Fairfax Square, Fairfax, VA 22031
                 </Typography>
               </Box>
             </Box>

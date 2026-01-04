@@ -59,19 +59,19 @@ const ContactUs = () => {
     {
       icon: <PhoneIcon sx={{ fontSize: 32 }} />,
       title: 'Phone',
-      content: '+1 (555) 123-4567',
+      content: '+1 (804) 310-3818',
       color: '#2563eb',
     },
     {
       icon: <EmailIcon sx={{ fontSize: 32 }} />,
       title: 'Email',
-      content: 'info@hellodoc.com',
+      content: 'sakethmalladiusa@gmail.com',
       color: '#10b981',
     },
     {
       icon: <LocationOnIcon sx={{ fontSize: 32 }} />,
       title: 'Address',
-      content: '123 Healthcare Street, Medical City, MC 12345',
+      content: '3919 Fairfax Sqaure, Fairfax, VA 22031',
       color: '#f59e0b',
     },
   ];
