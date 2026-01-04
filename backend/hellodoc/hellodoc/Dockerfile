@@ -1,14 +1,22 @@
-# Use the official OpenJDK base image
-FROM openjdk:17-jdk-slim
-
-# Set the working directory in the container
+# ---- Build stage ----
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy the jar file from the target directory
-COPY hellodoc-0.0.1-SNAPSHOT.jar app.jar
+COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
+RUN chmod +x mvnw
 
-# Expose the port your application runs on
+RUN ./mvnw dependency:go-offline
+
+COPY src src
+RUN ./mvnw clean package -DskipTests
+
+# ---- Runtime stage ----
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8081
-
-# Command to run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]
